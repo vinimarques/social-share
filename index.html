@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Share Class</title>
+	<style type="text/css">
+		body {padding:50px; font-family:'Open Sans'}
+		ul li {padding:20px 0;}
+		ul li a {display:inline-block; margin-left:10px; padding:5px 10px; background-color:#ff0000; text-decoration:none; color:#fff; border-radius:5px;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>
+			When you don't have facebook appId, is possible share only the url:
+			<a href="http://nodo.cc" class="share-link" data-share-type="facebook" title="Facebook">Facebook only url</a>
+		</li>
+		<li>
+			When you have facebook appId, is possible share the url, title, caption, description and image:
+			<a href="http://nodo.cc"
+				class="share-link" 
+				data-share-type="facebook" 
+				data-share-title="Title for share in facebook" 
+				data-share-caption="Caption for share in facebook" 
+				data-share-description="Description for share in facebook" 
+				data-share-image="http://cdn.esoterya.com/wp-content/uploads/2011/01/nodo_2_small.jpg" 
+			title="Facebook">Facebook with text</a>
+		</li>
+		<li>
+			Is possible share the url and text description:
+			<a href="http://nodo.cc" class="share-link" data-share-type="twitter" data-share-description="Text for share in twitter" title="Twitter">Twitter</a>
+		</li>
+		<li>
+			Is possible share only the url:
+			<a href="http://nodo.cc" class="share-link" data-share-type="google" title="Google+">Google+</a>
+		</li>
+	</ul>
+	<script type="text/javascript" src="Share.js"></script>
+	<script type="text/javascript">
+		/*
+			######################
+			###### Options: ###### 
+			###################### 
+
+			new Share({
+				shareClass: '',
+				facebook: {
+					appId: '',
+					text: '',
+					url: '',
+					image: ''
+				},
+				twitter: {
+					text: '',
+					url: ''
+				},
+				google: {
+					url: ''
+				}
+			});
+		*/
+
+		var shareLinks = new Share({
+			shareClass: '.share-link',
+			facebook: {
+				appId: '1427368454172928'
+			}
+		});
+	</script>
+</body>
+</html>
