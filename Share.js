@@ -25,6 +25,7 @@ var Share = function(settings) {
 Share.prototype.bindEvents = function() {
 	var _this = this;
 
+	// Get elements with the share class
 	var elements = document.querySelectorAll(this.shareClass);
 	for (var i = 0; i < elements.length; i++) {
 		elements[i].onclick = function(event) {
@@ -41,8 +42,9 @@ Share.prototype.bindEvents = function() {
 };
 
 Share.prototype.initFacebookApi = function() {
+	// Initialize FB API if appID exist
 	var _this = this;
-	var appId = (this.facebook) ? this.facebook.appId : null;
+	var appId = parseInt((this.facebook) ? this.facebook.appId : null);
 	if (appId && appId !== '') {
 		(function(d, s, id){
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -63,14 +65,20 @@ Share.prototype.initFacebookApi = function() {
 };
 
 Share.prototype.sendFacebook = function(element) {
-	var url = element.href;
+	// Type for popup name
 	var type = element.getAttribute('data-share-type');
-	var description = element.getAttribute('data-share-description') || '';
-	var title = element.getAttribute('data-share-title') || '';
-	var caption = element.getAttribute('data-share-caption') || '';
-	var image = element.getAttribute('data-share-image') || '';
+
+	// URL for share
+	var url = this.facebook.url || element.href || '';
+
+	// Data for share box
+	var description = this.facebook.description || element.getAttribute('data-share-description') || '';
+	var title = this.facebook.title || element.getAttribute('data-share-title') || '';
+	var caption = this.facebook.caption || element.getAttribute('data-share-caption') || '';
+	var image = this.facebook.image || element.getAttribute('data-share-image') || '';
 
 	if (typeof(FB) != 'undefined') {
+		// When FB is inited, use to FB API
 		FB.ui({
 			method : 'feed',
 			name: title,
@@ -81,8 +89,11 @@ Share.prototype.sendFacebook = function(element) {
 		});
 	}
 	else {
+		// When FB isn't inited, use simple FB URL for share
 		var fUrl = 'https://facebook.com/sharer.php';
 		var query = '?u=' + encodeURI(url);
+
+		// Attributes for popup
 		var attr = 'status=no,height=350,width=550,resizable=no,toolbar=no,menubar=no,scrollbars=no,location=no,directories=no';
 
 		this.openShare(fUrl+query, type, attr);
@@ -90,26 +101,41 @@ Share.prototype.sendFacebook = function(element) {
 };
 
 Share.prototype.sendTwitter = function(element) {
-	var url = element.href;
+	// Type for popup name
 	var type = element.getAttribute('data-share-type');
-	var description = element.getAttribute('data-share-description');
+	
+	// URL for share and Text
+	var url = this.twitter.url || element.href || '';	
+	var description = this.twitter.description || element.getAttribute('data-share-description') || '';
+
+	// URL Twitter share and query string
 	var tUrl = 'https://twitter.com/intent/tweet';
 	var query = '?url=' + encodeURI(url) + '&text=' + encodeURI(description);
+	
+	// Attributes for popup
 	var attr = 'status=no,height=250,width=450,resizable=no,toolbar=no,menubar=no,scrollbars=no,location=no,directories=no';
 
 	this.openShare(tUrl+query, type, attr);
 };
 
 Share.prototype.sendGoogle = function(element) {
-	var url = element.href;
+	// Type for popup name
 	var type = element.getAttribute('data-share-type');
+
+	// URL for share
+	var url = this.google.url || element.href || '';
+	
+	// URL GooglePlus share and query string
 	var gUrl = 'https://plus.google.com/share';
 	var query = '?url=' + encodeURI(url);
+	
+	// Attributes for popup	
 	var attr = 'status=no,height=450,width=500,resizable=no,toolbar=no,menubar=no,scrollbars=no,location=no,directories=no';
 
 	this.openShare(gUrl+query, type, attr);
 };
 
 Share.prototype.openShare = function(url,type,attr) {
+	// Open popup
 	window.open(url,'share-' + type, attr);
 };
