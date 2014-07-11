@@ -15,12 +15,12 @@
 
 >Basic configuration
 
-```shell
+```html
 	<a href="http://google.com" class="share-link" data-share-type="facebook" title="Facebook">Facebook</a>
 	<a href="http://google.com" class="share-link" data-share-type="twitter" data-share-description="Text for Twitter" title="Twitter">Twitter</a>
 	<a href="http://google.com" class="share-link" data-share-type="google" title="Google+">Google+</a>
 ```
-```shell
+```html
 	<script type="text/javascript" src="Share.js"></script>
 	<script type="text/javascript">
 	var share = new Share();
@@ -29,7 +29,7 @@
 
 >Advanced configuration JS
 
-```shell
+```html
 	<a href="http://nodo.cc"
 		class="share-link" 
 		data-share-type="facebook" 
@@ -41,7 +41,7 @@
 	<a href="http://google.com" class="share-link" data-share-type="twitter" data-share-description="Text for Twitter" title="Twitter">Twitter</a>
 	<a href="http://google.com" class="share-link" data-share-type="google" title="Google+">Google+</a>
 ```
-```shell
+```html
 	<script type="text/javascript" src="Share.js"></script>
 	<script type="text/javascript">
 	var share = new Share({
@@ -55,12 +55,12 @@
 
 >Advanced configuration JS with static values
 
-```shell
+```html
 	<a href="#" class="share-link" data-share-type="facebook" title="Facebook">Facebook</a>
 	<a href="#" class="share-link" data-share-type="twitter" title="Twitter">Twitter</a>
 	<a href="#" class="share-link" data-share-type="google" title="Google+">Google+</a>
 ```
-```shell
+```html
 	<script type="text/javascript" src="Share.js"></script>
 	<script type="text/javascript">
 	var share = new Share({
