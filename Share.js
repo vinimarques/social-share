@@ -13,9 +13,9 @@ var Share = function(settings) {
 
 	// class variables
 	this.shareClass = sett.shareClass || '.share-link';
-	this.facebook = sett.facebook || null;
-	this.twitter = sett.twitter  || null;
-	this.google = sett.google  || null;
+	this.facebook = sett.facebook || {};
+	this.twitter = sett.twitter  || {};
+	this.google = sett.google  || {};
 
 	// class methods
 	this.bindEvents();
@@ -44,8 +44,9 @@ Share.prototype.bindEvents = function() {
 Share.prototype.initFacebookApi = function() {
 	// Initialize FB API if appID exist
 	var _this = this;
-	var appId = parseInt((this.facebook) ? this.facebook.appId : null);
-	if (appId && appId !== '') {
+	var appId = parseInt((this.facebook.appId) ? this.facebook.appId : 0);	
+
+	if (appId && appId > 0) {
 		(function(d, s, id){
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) {return;}
@@ -69,7 +70,7 @@ Share.prototype.sendFacebook = function(element) {
 	var type = element.getAttribute('data-share-type');
 
 	// URL for share
-	var url = this.facebook.url || element.href || '';
+	var url = this.facebook.url || element.href || location.href;
 
 	// Data for share box
 	var description = this.facebook.description || element.getAttribute('data-share-description') || '';
@@ -77,7 +78,7 @@ Share.prototype.sendFacebook = function(element) {
 	var caption = this.facebook.caption || element.getAttribute('data-share-caption') || '';
 	var image = this.facebook.image || element.getAttribute('data-share-image') || '';
 
-	if (typeof(FB) != 'undefined') {
+	if (typeof(FB) != 'undefined' && this.facebook.appId) {
 		// When FB is inited, use to FB API
 		FB.ui({
 			method : 'feed',
@@ -105,7 +106,7 @@ Share.prototype.sendTwitter = function(element) {
 	var type = element.getAttribute('data-share-type');
 	
 	// URL for share and Text
-	var url = this.twitter.url || element.href || '';	
+	var url = this.twitter.url || element.href || location.href;	
 	var description = this.twitter.description || element.getAttribute('data-share-description') || '';
 
 	// URL Twitter share and query string
@@ -123,7 +124,7 @@ Share.prototype.sendGoogle = function(element) {
 	var type = element.getAttribute('data-share-type');
 
 	// URL for share
-	var url = this.google.url || element.href || '';
+	var url = this.google.url || element.href || location.href;
 	
 	// URL GooglePlus share and query string
 	var gUrl = 'https://plus.google.com/share';
